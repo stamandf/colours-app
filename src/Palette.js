@@ -25,7 +25,8 @@ export default class Palette extends React.Component {
                 background={color[format]} 
                 name={color.name} 
                 key={color.id} 
-                moreUrl={`/palette/${id}/${color.id}`}    
+                moreUrl={`/palette/${id}/${color.id}`}
+                showLink={true}    
             />
         );
         return (
