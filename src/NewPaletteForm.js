@@ -77,12 +77,15 @@ const styles = theme => ({
 });
   
 class NewPaletteForm extends React.Component {
+    static defaultProps = {
+        maxColors: 20
+    };
     constructor(props) {
         super(props);
         this.state = {
             open: true,
             currentColor: "teal",
-            colors: [{color: "blue", name: "blue"}],
+            colors: this.props.palettes[0].colors,
             newColorName: "",
             newPaletteName: ""
           };
@@ -121,7 +124,10 @@ class NewPaletteForm extends React.Component {
       }
 
       addNewColor = () => {
-          const newColor = { color: this.state.currentColor, name: this.state.newColorName};
+          const newColor = { 
+              color: this.state.currentColor, 
+              name: this.state.newColorName
+            };
           this.setState({ colors: [...this.state.colors, newColor], newColorName: "" });
       }
       handleSubmit = () => {
@@ -140,15 +146,27 @@ class NewPaletteForm extends React.Component {
             colors: this.state.colors.filter(color => color.name !== colorName)
           });
       }
-
       onSortEnd = ({oldIndex, newIndex}) => {
         this.setState(({colors}) => ({
           colors: arrayMove(colors, oldIndex, newIndex),
         }));
       };
+      clearColors = () => {
+          this.setState({ colors:[] } )
+      }
+      addRandomColor = () => {
+        const allColors = this.props.palettes.map(p => p.colors).flat();
+        let rand = Math.floor(Math.random() * allColors.length);
+        const randomColor = allColors[rand];
+        this.setState({
+            colors: [...this.state.colors, randomColor]
+        });
+      }
+
       render() {
-        const { classes } = this.props;
-        const { open } = this.state;
+        const { classes, maxColors } = this.props;
+        const { open, colors } = this.state;
+        const paletteIsFull = colors.length >= maxColors;
     
         return (
           <div className={classes.root}>
@@ -204,10 +222,21 @@ class NewPaletteForm extends React.Component {
               <Divider />
               <Typography variant="h4">Design your own Palette</Typography>
               <div>
-                <Button variant="contained" color="secondary" className={classes.button}>
+                <Button 
+                    variant="contained" 
+                    color="secondary" 
+                    className={classes.button}
+                    onClick={this.clearColors}
+                >
                         Clear Palette
                 </Button>
-                <Button variant="contained" color="primary" className={classes.button}>
+                <Button 
+                    variant="contained" 
+                    color="primary" 
+                    className={classes.button}
+                    onClick={this.addRandomColor}
+                    disabled={paletteIsFull}
+                >
                         Random Color
                 </Button>
                 
@@ -228,11 +257,13 @@ class NewPaletteForm extends React.Component {
                   <Button 
                         variant="contained"
                         type='submit' 
-                        color="primary" 
+                        color="primary"
+                        disabled={paletteIsFull} 
                         className={classes.button}
-                        style={{ backgroundColor: this.state.currentColor}}
+                        style={{ 
+                            backgroundColor: paletteIsFull ? "grey" : this.state.currentColor}}
                   >
-                        Add Color
+                  {paletteIsFull ? "Palette Full" : "Add Color"}
                   </Button>
               </ValidatorForm>
               
@@ -244,7 +275,7 @@ class NewPaletteForm extends React.Component {
             >
               <div className={classes.drawerHeader} />
                <DraggableColorList 
-                    colors={this.state.colors} 
+                    colors={colors} 
                     removeColor={this.removeColor} 
                     axis='xy'
                     onSortEnd={this.onSortEnd}    
