@@ -81,8 +81,9 @@ class NewPaletteForm extends React.Component {
         this.state = {
             open: true,
             currentColor: "teal",
-            colors: [],
-            newName: ""
+            colors: [{color: "blue", name: "blue"}],
+            newColorName: "",
+            newPaletteName: ""
           };
     }
     
@@ -97,6 +98,11 @@ class NewPaletteForm extends React.Component {
                 ({ color }) => color !== this.state.currentColor
             )
         );
+        ValidatorForm.addValidationRule('isPaletteNameUnique', value => 
+            this.props.palettes.every(
+                ({ paletteName }) => paletteName.toLowerCase() !== value.toLowerCase()
+            )
+        );
     }
       handleDrawerOpen = () => {
         this.setState({ open: true });
@@ -107,21 +113,21 @@ class NewPaletteForm extends React.Component {
       };
     
       handleChange = (e) => {
-        this.setState( { newName: e.target.value})
+        this.setState( { [e.target.name]: e.target.value })
       }
       updateCurrentColor = (newColor) => {
           this.setState( { currentColor: newColor.hex });
       }
 
       addNewColor = () => {
-          const newColor = { color: this.state.currentColor, name: this.state.newName}
-          this.setState({ colors: [...this.state.colors, newColor], newName: "" })
+          const newColor = { color: this.state.currentColor, name: this.state.newColorName};
+          this.setState({ colors: [...this.state.colors, newColor], newColorName: "" });
       }
       handleSubmit = () => {
-        let newName = "New Test Palette";
+        let newPaletteName = this.state.newPaletteName;
         const newPalette = {
-            paletteName: "New Test Palette", 
-            id: newName.toLowerCase().replace(/ /g,"-"),
+            paletteName: newPaletteName, 
+            id: newPaletteName.toLowerCase().replace(/ /g,"-"),
             colors: this.state.colors,
         };
         this.props.savePalette(newPalette);
@@ -153,7 +159,19 @@ class NewPaletteForm extends React.Component {
                 <Typography variant="h6" color="inherit" noWrap>
                   Persistent drawer
                 </Typography>
-                <Button variant="contained" color="primary" onClick={this.handleSubmit} >Save Palette</Button>
+                <ValidatorForm onSubmit={this.handleSubmit} ref='form'>
+                    <TextValidator 
+                        label="Palette Name"
+                        name="newPaletteName" 
+                        value={this.state.newPaletteName} 
+                        onChange={this.handleChange} 
+                        validators={["required", "isPaletteNameUnique"]}
+                        errorMessages={["Enter Palette Name", "Palette Name already in use!"]}
+                        />
+                    <Button variant="contained" color="primary" type="submit">
+                        Save Palette
+                    </Button>
+                </ValidatorForm>
               </Toolbar>
             </AppBar>
             <Drawer
@@ -185,13 +203,14 @@ class NewPaletteForm extends React.Component {
                 color={this.state.currentColor} 
                 onChangeComplete={this.updateCurrentColor}
               />
-              <ValidatorForm onSubmit={this.addNewColor}>
+              <ValidatorForm onSubmit={this.addNewColor} ref='form'>
                   <TextValidator 
                       label='Color Name:'
-                      value={this.state.newName}
+                      value={this.state.newColorName}
+                      name='newColorName'
                       onChange={this.handleChange}
                       validators={['required','isColorNameUnique', 'isColorUnique']}
-                      errorMessages={['Enter a Color name', 'Color name already taken. Please try again.', 'Color already in Use']}
+                      errorMessages={['Enter a Color name', 'Color name must be unique.', 'Color already in use!']}
                   />
                   <Button 
                         variant="contained"
