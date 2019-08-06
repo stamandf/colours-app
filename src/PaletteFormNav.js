@@ -10,6 +10,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Button from '@material-ui/core/Button';
 import { ValidatorForm, TextValidator} from 'react-material-ui-form-validator';
 import { withStyles } from '@material-ui/core/styles';
+import PaletteMetaForm from './PaletteMetaForm';
 
 const drawerWidth = 450;
 const styles = theme => ({
@@ -95,7 +96,7 @@ class PaletteFormNav extends React.Component {
                 </Typography>
               </Toolbar>
                  <div className={classes.navBtns}>
-                    <ValidatorForm onSubmit={() => this.props.handleSubmit(newPaletteName)} ref='form'>
+                    {/* <ValidatorForm onSubmit={() => this.props.handleSubmit(newPaletteName)} ref='form'>
                         <TextValidator 
                             label="Palette Name"
                             name="newPaletteName" 
@@ -108,7 +109,8 @@ class PaletteFormNav extends React.Component {
                         <Button variant="contained" color="primary" type="submit">
                             Save Palette
                         </Button>
-                    </ValidatorForm>
+                    </ValidatorForm> */}
+                    <PaletteMetaForm handleSubmit={this.props.handleSubmit}/>
                     <Link to="/">
                             <Button variant="contained" color="secondary">Go Back</Button>
                     </Link>
