@@ -12,7 +12,7 @@ class PaletteMetaForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            open: false,
+            open: true,
             newPaletteName: ""
           };
     }
@@ -24,26 +24,21 @@ class PaletteMetaForm extends React.Component {
         );
     }
 
-    handleChange = (e) => {
-        this.setState( { [e.target.name]: e.target.value })
-      }
-
     handleClickOpen = () => {
     this.setState({ open: true });
     };
 
     handleClose = () => {
     this.setState({ open: false });
+    
     };
     
     render() {
         const { newPaletteName } = this.props;
         return (
-          <div>
-            
             <Dialog
               open={this.state.open}
-              onClose={this.handleClose}    
+              onClose={this.props.hideForm}    
               aria-labelledby="form-dialog-title"
             >
               <DialogTitle id="form-dialog-title">Save Palette</DialogTitle>
@@ -56,7 +51,7 @@ class PaletteMetaForm extends React.Component {
                             label="Palette Name"
                             name="newPaletteName" 
                             value={newPaletteName} 
-                            onChange={this.handleChange} 
+                            onChange={this.props.handleChange} 
                             fullWidth
                             margin="normal"
                             validators={["required", "isPaletteNameUnique"]}
@@ -64,7 +59,7 @@ class PaletteMetaForm extends React.Component {
                             />
               </DialogContent>
               <DialogActions>
-                <Button onClick={this.handleClose} color="primary">
+                <Button onClick={this.props.hideForm} color="primary">
                     Cancel
                 </Button>
                 <Button variant="contained" color="primary" type="submit">
@@ -73,7 +68,6 @@ class PaletteMetaForm extends React.Component {
               </DialogActions>
               </ValidatorForm>
             </Dialog>
-          </div>
         );
       }
 }

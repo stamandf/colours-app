@@ -79,16 +79,20 @@ class PaletteFormNav extends React.Component {
             )
         );
     }
-
+      
     handleChange = (e) => {
         this.setState( { [e.target.name]: e.target.value })
       }
 
     showForm = () => {
       this.setState({ formShowing: true });
+    } 
+    
+    hideForm = () => {
+      this.setState({ formShowing: false });
     }  
     render() {
-        const { classes, open } = this.props;
+        const { classes, open, palettes } = this.props;
         const { newPaletteName } = this.state;
         return (
             <div className={classes.root}>
@@ -117,12 +121,24 @@ class PaletteFormNav extends React.Component {
                     <Link to="/">
                         <Button variant="contained" color="secondary" className={classes.button}>Go Back</Button>
                     </Link>
-                        <Button variant="contained" color="primary" className={classes.button} onClick={this.showForm}>
+                        <Button 
+                          variant="contained" 
+                          color="primary" 
+                          className={classes.button} 
+                          onClick={this.showForm}
+                        >
                       Save Palette
                     </Button>
                 </div>
             </AppBar>
-            {this.state.formShowing && (<PaletteMetaForm handleSubmit={this.props.handleSubmit} newPaletteName={newPaletteName} />)}
+            {this.state.formShowing && (
+              <PaletteMetaForm 
+                handleSubmit={this.props.handleSubmit}
+                handleChange={this.handleChange}
+                palettes={palettes} 
+                newPaletteName={newPaletteName} 
+                hideForm={this.hideForm}
+              />)}
               
             </div>
         );
