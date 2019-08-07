@@ -1,6 +1,6 @@
 import React from 'react';
 import Button from '@material-ui/core/Button';
-import TextField from '@material-ui/core/TextField';
+// import TextField from '@material-ui/core/TextField';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogContent from '@material-ui/core/DialogContent';
@@ -37,45 +37,41 @@ class PaletteMetaForm extends React.Component {
     };
     
     render() {
-        const { newPaletteName } = this.state;
+        const { newPaletteName } = this.props;
         return (
           <div>
-            <Button variant="outlined" color="primary" onClick={this.handleClickOpen}>
-              Save Palette
-            </Button>
+            
             <Dialog
               open={this.state.open}
               onClose={this.handleClose}    
               aria-labelledby="form-dialog-title"
             >
               <DialogTitle id="form-dialog-title">Save Palette</DialogTitle>
+              <ValidatorForm onSubmit={() => this.props.handleSubmit(newPaletteName)} ref='form'>
               <DialogContent>
                 <DialogContentText>
                   Please enter the name of your new Palette below.
                 </DialogContentText>
-                <ValidatorForm onSubmit={() => this.props.handleSubmit(newPaletteName)} ref='form'>
                         <TextValidator 
                             label="Palette Name"
                             name="newPaletteName" 
                             value={newPaletteName} 
                             onChange={this.handleChange} 
+                            fullWidth
+                            margin="normal"
                             validators={["required", "isPaletteNameUnique"]}
                             errorMessages={["Enter Palette Name", "Palette Name already in use!"]}
                             />
-                        
-                        <Button variant="contained" color="primary" type="submit">
-                            Save Palette
-                        </Button>
-                    </ValidatorForm>
               </DialogContent>
               <DialogActions>
                 <Button onClick={this.handleClose} color="primary">
-                  Cancel
+                    Cancel
                 </Button>
-                <Button onClick={this.handleClose} color="primary">
-                  Save
+                <Button variant="contained" color="primary" type="submit">
+                    Save
                 </Button>
               </DialogActions>
+              </ValidatorForm>
             </Dialog>
           </div>
         );
