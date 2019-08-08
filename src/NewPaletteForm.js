@@ -10,7 +10,7 @@ import IconButton from '@material-ui/core/IconButton';
 import ChevronLeftIcon from '@material-ui/icons/ChevronLeft';
 import Button from '@material-ui/core/Button';
 import DraggableColorList from './DraggableColorList';
-import { arrayMove } from 'react-sortable-hoc';
+import arrayMove from 'array-move';
 
 const drawerWidth = 450;
 
@@ -113,12 +113,10 @@ class NewPaletteForm extends React.Component {
       addNewColor = (newColor) => {
           this.setState({ colors: [...this.state.colors, newColor], newColorName: "" });
       }
-      handleSubmit = (newPaletteName) => {
-        const newPalette = {
-            paletteName: newPaletteName, 
-            id: newPaletteName.toLowerCase().replace(/ /g,"-"),
-            colors: this.state.colors,
-        };
+      handleSubmit = (newPalette) => {
+        console.log("this.props=",this.props);
+        newPalette.id = newPalette.paletteName.toLowerCase().replace(/ /g,"-");
+        newPalette.colors = this.state.colors;
         this.props.savePalette(newPalette);
         this.props.history.push("/");
       }
