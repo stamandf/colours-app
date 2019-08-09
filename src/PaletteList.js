@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import MiniPalette from './MiniPalette';
 import { withStyles } from '@material-ui/styles';
 import styles from './styles/PaletteListStyles';
@@ -17,17 +18,23 @@ class PaletteList extends React.Component {
                         <h1 className={classes.heading}>React Colors</h1>
                         <Link to="/palette/new">Create New Palette</Link>
                     </nav>
-                    <div className={classes.palettes}>
-                        {palettes.map(palette => (
-                            <MiniPalette 
-                                {...palette}
-                                handleDelete={deletePalette} 
-                                handleClick={() => this.goToPalette(palette.id)}
-                                key={palette.id}
-                                id={palette.id}
-                            />
-                        ))}
-                    </div>
+                        <TransitionGroup className={classes.palettes}>
+                            {palettes.map(palette => (
+                                <CSSTransition
+                                    key={palette.id}
+                                    classNames='fade'
+                                    timeout={500}
+                                >
+                                    <MiniPalette 
+                                        {...palette}
+                                        handleDelete={deletePalette} 
+                                        handleClick={() => this.goToPalette(palette.id)}
+                                        key={palette.id}
+                                        id={palette.id}
+                                    />
+                                </CSSTransition>
+                            ))}
+                        </TransitionGroup>
                 </div>
             </div>
         )
