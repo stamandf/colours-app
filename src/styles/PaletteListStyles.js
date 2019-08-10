@@ -24,6 +24,9 @@ export default {
     heading: {
         fontSize: "2rem"
     },
+    link: {
+        fontSize: "1rem"
+    },
     container: {
         width: "50%",
         display: "flex",
