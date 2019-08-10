@@ -92,6 +92,17 @@ export default class App extends React.Component {
                               </Page>
                             )}
                           />
+                          <Route //Default route to prevent getting 404s
+                            render={(routeProps) => (
+                              <Page>
+                                <PaletteList 
+                                palettes={this.state.palettes}
+                                deletePalette={this.deletePalette} 
+                                {...routeProps} 
+                                />
+                              </Page>
+                            )} 
+                          />
                     </Switch>
                   </CSSTransition>
           </TransitionGroup>
