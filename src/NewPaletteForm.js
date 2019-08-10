@@ -12,6 +12,7 @@ import Button from '@material-ui/core/Button';
 import DraggableColorList from './DraggableColorList';
 import arrayMove from 'array-move';
 import styles from './styles/NewPaletteFormStyles';
+import seeColors from './seedColors';
   
 class NewPaletteForm extends React.Component {
     static defaultProps = {
@@ -22,7 +23,7 @@ class NewPaletteForm extends React.Component {
         this.state = {
             open: true,
             currentColor: "teal",
-            colors: this.props.palettes[0].colors,
+            colors: seeColors[0].colors,
             
           };
     }
