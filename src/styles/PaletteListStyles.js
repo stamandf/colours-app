@@ -63,5 +63,9 @@ export default {
             gridTemplateColumns: "repeat(1, 100%)",
             gridGap: "1.4rem",
         }
+    },
+    button: {
+        color: "white",
+        fontSize: "1rem",
     }
 }

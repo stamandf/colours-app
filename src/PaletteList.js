@@ -2,6 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import Avatar from '@material-ui/core/Avatar';
+import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import List from '@material-ui/core/List';
@@ -20,17 +21,28 @@ class PaletteList extends React.Component {
     
     state = {
         openDeleteDialog: false,
+        openResetDialog: false,
         deletingId: ""
     }
     
     openDialog = (id) => {
         this.setState({ openDeleteDialog: true, deletingId: id });
-        
-        
     }
-    HandleDelete = () => {
+
+    openResetDialog = (id) => {
+        this.setState({ openResetDialog: true });
+    }
+
+    handleDelete = () => {
         this.props.deletePalette(this.state.deletingId);
         this.closeDialog();
+    }
+    handleReset = () => {
+        this.props.resetPaletteList();
+        this.closeResetDialog();
+    }
+    closeResetDialog = () => {
+        this.setState({ openResetDialog: false })
     }
     closeDialog = () => {
         this.setState({ openDeleteDialog: false, deletingId: "" })
@@ -41,12 +53,13 @@ class PaletteList extends React.Component {
     }
     render() {
         const { palettes, classes } = this.props;
-        const { openDeleteDialog } = this.state; 
+        const { openDeleteDialog, openResetDialog } = this.state; 
         return (
             <div className={classes.root}>
                 <div className={classes.container}>
                     <nav className={classes.nav}>
                         <h1 className={classes.heading}>React Colors</h1>
+                        <Button variant={"outlined"} className={classes.button} onClick={this.openResetDialog}>Reset</Button>
                         <Link className={classes.link} to="/palette/new">Create New Palette</Link>
                     </nav>
                         <TransitionGroup className={classes.palettes}>
@@ -74,7 +87,7 @@ class PaletteList extends React.Component {
                 >
                     <DialogTitle id="delete-dialog-title">Delete Palette?</DialogTitle>
                         <List>
-                            <ListItem button onClick={this.HandleDelete}>
+                            <ListItem button onClick={this.handleDelete}>
                                 <ListItemAvatar>
                                     <Avatar
                                         style={{ backgroundColor:green[100], color: green[600] }}
@@ -85,6 +98,35 @@ class PaletteList extends React.Component {
                                 <ListItemText primary="Delete" />
                             </ListItem>
                             <ListItem button onClick={this.closeDialog}>
+                                <ListItemAvatar>
+                                    <Avatar
+                                        style={{ backgroundColor:red[100], color: red[600] }}
+                                    >
+                                        <CloseIcon />
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <ListItemText primary="Cancel" />
+                            </ListItem>
+                        </List>
+                </Dialog>
+                <Dialog 
+                    open={openResetDialog} 
+                    aria-labelledby="reset-dialog-title"
+                    onClose={this.closeResetDialog}
+                >
+                    <DialogTitle id="reset-dialog-title">Restore default Colors?</DialogTitle>
+                        <List>
+                            <ListItem button onClick={this.handleReset}>
+                                <ListItemAvatar>
+                                    <Avatar
+                                        style={{ backgroundColor:green[100], color: green[600] }}
+                                    >
+                                        <CheckIcon />
+                                    </Avatar>
+                                </ListItemAvatar>
+                                <ListItemText primary="Reset" />
+                            </ListItem>
+                            <ListItem button onClick={this.closeResetDialog}>
                                 <ListItemAvatar>
                                     <Avatar
                                         style={{ backgroundColor:red[100], color: red[600] }}

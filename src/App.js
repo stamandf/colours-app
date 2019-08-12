@@ -29,6 +29,12 @@ export default class App extends React.Component {
   savePalette = (newPalette) => {
     this.setState({ palettes: [...this.state.palettes, newPalette] }, this.syncLocalStorage);
   }
+  resetPaletteList = () => {
+    window.localStorage.clear();
+    // this.setState({ palettes: seedColors}, this.syncLocalStorage);
+    this.setState({ palettes: seedColors});
+    console.log("Reset Palette List! ", this.state.palettes);
+  }
   syncLocalStorage = () => {
     window.localStorage.setItem("palettes", JSON.stringify(this.state.palettes));
   }
@@ -73,7 +79,8 @@ export default class App extends React.Component {
                               <Page>
                                 <PaletteList 
                                 palettes={this.state.palettes}
-                                deletePalette={this.deletePalette} 
+                                deletePalette={this.deletePalette}
+                                resetPaletteList={this.resetPaletteList} 
                                 {...routeProps} 
                                 />
                               </Page>
@@ -97,7 +104,8 @@ export default class App extends React.Component {
                               <Page>
                                 <PaletteList 
                                 palettes={this.state.palettes}
-                                deletePalette={this.deletePalette} 
+                                deletePalette={this.deletePalette}
+                                resetPaletteList={this.resetPaletteList} 
                                 {...routeProps} 
                                 />
                               </Page>
