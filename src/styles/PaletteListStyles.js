@@ -17,8 +17,9 @@ export default {
         alignItems: "flex-start",
         justifyContent: "center",
         /* background by SVGBackgrounds.com */
-        backgroundColor: "#394bad",
-        backgroundImage: `url(${bg})`,
+        backgroundColor: "#ffffff",  //Switch background to white
+        // backgroundColor: "#394bad",
+        // backgroundImage: `url(${bg})`, //Remove ugly wiggly background
         overflow: "scroll"
     },
     heading: {
@@ -45,10 +46,17 @@ export default {
         width: "100%",
         justifyContent: "space-between",
         alignItems: "center",
-        color: "white",
+        borderBottom: "1px solid",
+        marginBottom: "4rem",   
+        color: "black",
         "& a": {
-            color: "white"
+            color: "black"
         }
+
+        // color: "white",
+        // "& a": {
+        //     color: "white"
+        // }
     },
     palettes: {
         boxSizing: "border-box",
@@ -65,7 +73,7 @@ export default {
         }
     },
     button: {
-        color: "white",
+        color: "black",
         fontSize: "1rem",
     }
 }

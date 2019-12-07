@@ -1,8 +1,8 @@
 export default {
     root: {
         backgroundColor: "white",
-        border: "1px solid black",
         borderRadius: "5px",
+        boxShadow: "0 2rem 2rem .8rem rgba(0,51,103,.2)",
         padding: "0.5rem",
         position: "relative",
         overflow: "hidden",
