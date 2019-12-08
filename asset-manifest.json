@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/colours-app/static/css/main.1539f489.chunk.css",
-    "main.js": "/colours-app/static/js/main.1e02fa80.chunk.js",
-    "main.js.map": "/colours-app/static/js/main.1e02fa80.chunk.js.map",
+    "main.js": "/colours-app/static/js/main.719c3cf0.chunk.js",
+    "main.js.map": "/colours-app/static/js/main.719c3cf0.chunk.js.map",
     "runtime~main.js": "/colours-app/static/js/runtime~main.4f8f5e8f.js",
     "runtime~main.js.map": "/colours-app/static/js/runtime~main.4f8f5e8f.js.map",
     "static/css/2.292c8731.chunk.css": "/colours-app/static/css/2.292c8731.chunk.css",
     "static/js/2.7cdb8680.chunk.js": "/colours-app/static/js/2.7cdb8680.chunk.js",
     "static/js/2.7cdb8680.chunk.js.map": "/colours-app/static/js/2.7cdb8680.chunk.js.map",
     "index.html": "/colours-app/index.html",
-    "precache-manifest.dbe096c10112fc8ffcfcff27b9f213f4.js": "/colours-app/precache-manifest.dbe096c10112fc8ffcfcff27b9f213f4.js",
+    "precache-manifest.2290ca430918ac61bbba7cf58eccbd0c.js": "/colours-app/precache-manifest.2290ca430918ac61bbba7cf58eccbd0c.js",
     "service-worker.js": "/colours-app/service-worker.js",
     "static/css/2.292c8731.chunk.css.map": "/colours-app/static/css/2.292c8731.chunk.css.map",
     "static/css/main.1539f489.chunk.css.map": "/colours-app/static/css/main.1539f489.chunk.css.map"
