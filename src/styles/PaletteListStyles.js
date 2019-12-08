@@ -1,5 +1,4 @@
 import sizes from './sizes';
-import bg from './bg.svg';
 
 export default {
     "@global": {
@@ -16,17 +15,21 @@ export default {
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
-        /* background by SVGBackgrounds.com */
-        backgroundColor: "#ffffff",  //Switch background to white
-        // backgroundColor: "#394bad",
-        // backgroundImage: `url(${bg})`, //Remove ugly wiggly background
+        backgroundColor: "#ffffff",  
         overflow: "scroll"
     },
     heading: {
         fontSize: "2rem"
     },
     link: {
-        fontSize: "1rem"
+        fontSize: "1rem",
+        fontWeight: "500",
+        textDecoration: "none",
+        transition: "all .2s",
+        "&:hover": {
+            color: "#0066cd",
+            transform: "scale(1.1)"
+        }
     },
     container: {
         width: "50%",
@@ -52,11 +55,6 @@ export default {
         "& a": {
             color: "black"
         }
-
-        // color: "white",
-        // "& a": {
-        //     color: "white"
-        // }
     },
     palettes: {
         boxSizing: "border-box",
