@@ -58,7 +58,7 @@ class PaletteList extends React.Component {
             <div className={classes.root}>
                 <div className={classes.container}>
                     <nav className={classes.nav}>
-                        <h1 className={classes.heading}>React Colors</h1>
+                        <h1 className={classes.heading}>Colour Designer</h1>
                         <Button variant={"outlined"} className={classes.button} onClick={this.openResetDialog}>Reset</Button>
                         <Link className={classes.link} to="/palette/new">Create New Palette</Link>
                     </nav>
